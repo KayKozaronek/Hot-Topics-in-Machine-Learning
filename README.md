@@ -103,31 +103,6 @@ papers.head()
 
 
 
-
-```python
-%%nose
-
-import pandas as pd
-
-def test_papers_exists():
-    assert "papers" in globals(), \
-        "The variable papers should be defined."
-        
-def test_papers_correctly_loaded():
-    correct_papers = pd.read_csv("datasets/papers.csv")
-    assert correct_papers.equals(papers), "The variable papers should contain the data in papers.csv"
-```
-
-
-
-
-
-
-    2/2 tests passed
-
-
-
-
 ## 2. Preparing the data for analysis
 <p>For the analysis of the papers, we are only interested in the text data associated with the paper as well as the year the paper was published in.</p>
 <p>We will analyze this text data using natural language processing.  Since the file contains some metadata such as id's and filenames, it is necessary to remove all the columns that do not contain useful text information.</p>
@@ -140,8 +115,6 @@ papers.drop(["id", "event_type", "pdf_name"], axis=1, inplace=True)
 # Print out the first rows of papers
 papers.head()
 ```
-
-
 
 
 <div>
@@ -209,32 +182,6 @@ papers.head()
 </div>
 
 
-
-
-```python
-%%nose
-
-import pandas as pd
-
-def test_papers_exists():
-    assert "papers" in globals(), \
-        "The variable `papers` should be defined."
-        
-def test_papers_columns():
-    assert papers.columns.size==4, \
-        "The variable `papers` does not contain the right amount of columns."
-```
-
-
-
-
-
-
-    2/2 tests passed
-
-
-
-
 ## 3. Plotting how machine learning has evolved over time
 <p>In order to understand how the machine learning field has recently exploded in popularity, we will begin by visualizing the number of publications per year. </p>
 <p>By looking at the number of published papers per year,  we can understand the extent of the machine learning 'revolution'! Typically, this significant increase in popularity is attributed to the large amounts of compute power, data and improvements in algorithms.</p>
@@ -256,38 +203,7 @@ counts.plot(kind="bar", rot=45, figsize=(10,10));
 ```
 
 
-![png](output_7_0.png)
-
-
-
-```python
-%%nose
-
-# one or more tests of the students code. 
-# The @solution should pass the tests.
-# The purpose of the tests is to try to catch common errors and to 
-# give the student a hint on how to resolve these errors.
-
-def test_vars_exists():
-    assert "groups" in globals(), \
-        "The variable groups should be defined."
-    assert "counts" in globals(), \
-        "The variable counts should be defined."
-        
-def test_vars_columns():
-    correct_groups = papers.groupby('year')
-    correct_counts = correct_groups.size()
-    assert correct_counts.equals(counts), "The variable counts is not correctly defined."
-```
-
-
-
-
-
-
-    2/2 tests passed
-
-
+![png](figures/output_7_0.png)
 
 
 ## 4. Preprocessing the text data
@@ -332,32 +248,6 @@ papers["title_processed"].head()
 
 
 
-```python
-%%nose
-
-# one or more tests of the students code. 
-# The @solution should pass the tests.
-# The purpose of the tests is to try to catch common errors and to 
-# give the student a hint on how to resolve these errors.
-
-def test_processed_title_column():
-    tmp = papers['title'].map(lambda x: re.sub('[,\.!?]', '', x))
-    # Convert the titles to lowercase
-    tmp = tmp.map(lambda x: x.lower())
-    tmp.name = 'title_processed'
-    assert tmp.equals(papers['title_processed']), "The column of processed titles is not correctly defined."
-```
-
-
-
-
-
-
-    1/1 tests passed
-
-
-
-
 ## 5.  A word cloud to visualize the preprocessed text data
 <p>In order to verify whether the preprocessing happened correctly, we can make a word cloud of the titles of the research papers. This will give us a visual representation of the most common words. Visualisation is key to understanding whether we are still on the right track! In addition, it allows us to verify whether we need additional preprocessing before further analyzing the text data.</p>
 <p>Python has a massive number of open libraries! Instead of trying to develop a method to create word clouds ourselves, we'll use Andreas Mueller's <a href="http://amueller.github.io/word_cloud/">wordcloud library</a>.</p>
@@ -383,31 +273,7 @@ wordcloud.to_image()
 
 
 
-![png](output_13_0.png)
-
-
-
-
-```python
-%%nose
-
-# one or more tests of the students code. 
-# The @solution should pass the tests.
-# The purpose of the tests is to try to catch common errors and to 
-# give the student a hint on how to resolve these errors.
-
-def test_example():
-    assert long_string == ' '.join(papers['title_processed']), \
-    'The titles were not parsed correctly to a single long string.'
-```
-
-
-
-
-
-
-    1/1 tests passed
-
+![png](figures/output_13_0.png)
 
 
 
@@ -459,31 +325,7 @@ plot_10_most_common_words(count_data, count_vectorizer)
 ```
 
 
-![png](output_16_0.png)
-
-
-
-```python
-%%nose
-
-# one or more tests of the students code. 
-# The @solution should pass the tests.
-# The purpose of the tests is to try to catch common errors and to 
-# give the student a hint on how to resolve these errors.
-
-def test_count_data():
-    assert "count_data" in globals(), \
-        "The variable count_data should be defined."
-```
-
-
-
-
-
-
-    1/1 tests passed
-
-
+![png](figures/output_16_0.png)
 
 
 ## 7. Analysing trends with LDA
@@ -552,26 +394,6 @@ print_topics(lda, count_vectorizer, number_words)
     learning analysis multi models model markov feature recognition using visual
 
 
-
-```python
-%%nose
-
-# No standard testing procedure exists for printing at the moment
-
-def test_nothing():
-    assert True, "Nothing to test"
-```
-
-
-
-
-
-
-    1/1 tests passed
-
-
-
-
 ## 8. The future of machine learning
 <p>Machine learning has become increasingly popular over the past years. The number of NIPS conference papers has risen exponentially, and people are continuously looking for ways on how they can incorporate machine learning into their products and services.</p>
 <p>Although this analysis focused on analyzing machine learning trends in research, a lot of these techniques are rapidly being adopted in industry. Following the latest machine learning trends is a critical skill for a data scientist, and it is recommended to continuously keep learning by going through blogs, tutorials, and courses.</p>
@@ -581,27 +403,4 @@ def test_nothing():
 # The historical data indicates that:
 more_papers_published_in_2018 = True
 ```
-
-
-```python
-%%nose
-
-# one or more tests of the students code. 
-# The @solution should pass the tests.
-# The purpose of the tests is to try to catch common errors and to 
-# give the student a hint on how to resolve these errors.
-
-def test():
-        assert more_papers_published_in_2018 == True, \
-    'The number published papers has been rising the past 10 years!'
-```
-
-
-
-
-
-
-    1/1 tests passed
-
-
 
